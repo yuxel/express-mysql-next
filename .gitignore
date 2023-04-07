@@ -1,0 +1,16 @@
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+# Optional REPL history
+.node_repl_history
+.next
+
+# Coveralls
+.nyc_output
+coverage
+
+# Benchmarking
+benchmarks/graphs
+.DS_Store
