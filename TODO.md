@@ -3,3 +3,4 @@
 3) Create pages and routes on NEXT
 4) Define Nextjs components
 5) Define API and Model structure
+6) Integrate config npm package
