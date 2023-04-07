@@ -37,7 +37,8 @@ app.use(session({
 nextApp.prepare().then(() => {
   const userApiController = require('./controllers/api/user');
 
-  app.post('/api/user/login', userApiController);
+  app.post('/api/user/login', userApiController.login);
+  app.post('/api/user/logout', userApiController.logout);
   app.all('*', (req, res) => {
     return handle(req, res);
   });

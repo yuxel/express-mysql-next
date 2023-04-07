@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import Layout from '../layouts/adminLayout';
 import AdminLoginForm from '../components/forms/AdminLoginForm';
-
-// import UsersModel from '../models/users.js';
+import LogoutButton from '../components/LogoutButton';
 
 export default function Page (props) {
   const [userLoggedIn, setUserLoggedIn] = useState(props.user);
@@ -17,9 +16,16 @@ export default function Page (props) {
     console.log('login fail etti');
   };
 
+  const onLogout = () => {
+    setUserLoggedIn(false);
+  };
+
   return <div>
     {userLoggedIn &&
-      <div>Admin giriş yapmış</div>
+      <div>
+        Admin giriş yapmış
+          <LogoutButton onLogout={onLogout}/>
+        </div>
     }
 
     {!userLoggedIn &&
