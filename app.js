@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
 // const { parse } = require('url')
 
 const next = require('next');
@@ -25,7 +26,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: 'somerandomstrings',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { httpOnly: false, secure: false }
+}));
+
 nextApp.prepare().then(() => {
+  const userApiController = require('./controllers/api/user');
+
+  app.post('/api/user/login', userApiController);
   app.all('*', (req, res) => {
     return handle(req, res);
   });

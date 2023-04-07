@@ -12,8 +12,6 @@ export async function getServerSideProps (context) {
   const response = await fetch('https://api.genelpara.com/embed/para-birimleri.json');
   const data = await response.json();
 
-  console.log('burasi', data);
-
   return {
     props: { data: data.USD.satis }
   };

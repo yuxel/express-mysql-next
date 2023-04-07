@@ -1,12 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Layout from '../layouts/adminLayout';
+import AdminLoginForm from '../components/forms/AdminLoginForm';
 
-import UsersModel from '../models/users.js';
+// import UsersModel from '../models/users.js';
 
 export default function Page (props) {
+  const [userLoggedIn, setUserLoggedIn] = useState(props.user);
+
+  const onLoginSuccess = () => {
+    setUserLoggedIn(true);
+    console.log('login succecss');
+  };
+
+  const onLoginFail = () => {
+    console.log('login fail etti');
+  };
+
   return <div>
-Burası admin paneli layout içi
+    {userLoggedIn &&
+      <div>Admin giriş yapmış</div>
+    }
+
+    {!userLoggedIn &&
+    <div>
+      <AdminLoginForm onLoginSuccess={onLoginSuccess} onLoginFail={onLoginFail}/>
+    </div>
+    }
   </div>;
 }
 
@@ -19,11 +39,11 @@ Page.getLayout = function getLayout (page) {
 };
 
 export async function getServerSideProps (context) {
-  const response = await UsersModel.getUserCount();
+  // const response = await UsersModel.getUserCount();
 
-  console.log('burasi', response);
+  console.log('burasi', context.req.session);
 
   return {
-    props: { data: '10' }
+    props: { user: context.req.session.user || null }
   };
 }
