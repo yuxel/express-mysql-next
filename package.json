@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "build": "next build",
+    "start-production": "next build && NODE_ENV=production npm start",
     "lint": "eslint './**/*.js'",
     "lint-fix": "eslint --fix './**/*.js'"
   },

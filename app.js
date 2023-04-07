@@ -10,7 +10,7 @@ const next = require('next');
 const app = express();
 
 const dev = process.env.NODE_ENV !== 'production';
-const port = 3000;
+const port = process.env.PORT || 3000;
 const hostname = 'localhost';
 
 const nextApp = next({ dev, hostname, port });
@@ -41,6 +41,8 @@ nextApp.prepare().then(() => {
   app.all('*', (req, res) => {
     return handle(req, res);
   });
+
+  console.log(`App running on ${dev ? 'Development' : 'Production'} environment on port ${port}`);
 });
 
 module.exports = app;
